@@ -30,6 +30,8 @@ else
   raise "Configuration file: #{WEBHOOK_CONFIG} does not exist"
 end
 
+$config['prefix_whitelist'] = $config['prefix_whitelist'] ? $config['prefix_whitelist'].split(',') : []
+
 ENV['HOME'] = '/var/lib/peadmin'
 ENV['PATH'] = '/sbin:/usr/sbin:/bin:/usr/bin:/opt/puppet/bin'
 
@@ -86,7 +88,11 @@ class Server  < Sinatra::Base
     # If prefix is enabled in our config file run the command to determine the prefix
     if $config['prefix']
       prefix = run_prefix_command(data.to_json)
-      deploy("#{prefix}_#{branch}")
+      if $config['prefix_whitelist'].include?(prefix)
+        deploy(branch)
+      else
+        deploy("#{prefix}_#{branch}")
+      end
     else
       deploy(branch)
     end
