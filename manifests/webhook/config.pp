@@ -21,6 +21,7 @@ class r10k::webhook::config (
   $client_timeout     = $r10k::params::webhook_client_timeout,
   $prefix             = $r10k::params::webhook_prefix,
   $prefix_command     = $r10k::params::webhook_prefix_command,
+  $prefix_whitelist   = $r10k::params::webhook_prefix_whitelist,
   $enable_ssl         = $r10k::params::webhook_enable_ssl,
   $use_mcollective    = $r10k::params::webhook_use_mcollective,
   $configfile         = '/etc/webhook.yaml',
@@ -43,6 +44,7 @@ class r10k::webhook::config (
       'protected'         => $protected,
       'prefix'            => $prefix,
       'prefix_command'    => $prefix_command,
+      'prefix_whitelist'  => $prefix_whitelist,
       'enable_ssl'        => $enable_ssl,
       'use_mcollective'   => $use_mcollective,
     }
