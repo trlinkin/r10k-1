@@ -40,7 +40,7 @@ module MCollective
             cmd << 'push'   if action == 'push'
             cmd << 'pull'   if action == 'pull'
             cmd << 'status' if action == 'status'
-            reply[:output] = run(cmd, :stderr => :error, :stdout => :output, :chomp => true, :cwd => arg )
+            reply[:status] = run(cmd, :stderr => :error, :stdout => :output, :chomp => true, :cwd => arg )
           when 'cache','synchronize','sync', 'deploy'
             cmd = r10k
             cmd << 'cache' if action == 'cache'
@@ -49,8 +49,8 @@ module MCollective
               cmd << 'deploy' << 'environment' << arg << '-p'
             end
             error = String.new
-            reply[:output] = run(cmd, :stderr => error, :stdout => :output, :chomp => true)
-            reply[:error] = error
+            reply[:status] = run(cmd, :stderr => error, :stdout => :output, :chomp => true)
+            reply[:output] = output
         end
       end
     end
