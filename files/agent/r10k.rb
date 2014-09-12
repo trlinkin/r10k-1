@@ -48,7 +48,9 @@ module MCollective
             if action == 'deploy'
               cmd << 'deploy' << 'environment' << arg << '-p'
             end
-            reply[:output] = run(cmd, :stderr => :error, :stdout => :output, :chomp => true)
+            error = String.new
+            reply[:output] = run(cmd, :stderr => error, :stdout => :output, :chomp => true)
+            reply[:error] = error
         end
       end
     end
